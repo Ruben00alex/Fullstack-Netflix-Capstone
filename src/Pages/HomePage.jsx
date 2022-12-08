@@ -1,7 +1,7 @@
 import MovieCarousel from "../components/MovieCarousel";
 import SplashScreen from "../components/SplashScreen";
 import { useEffect, useState } from "react";
-const HomePage = ( { movies, genres,setIsMovieModalOpen}) => {
+const HomePage = ( { movies, genres,setIsMovieModalOpen,setIsMovieInfoModalOpen,setChosenMovie}) => {
     let [movieChosenRandomly, setMovieChosenRandomly] = useState(movies[Math.floor(Math.random() * movies.length)])
 
     return (
@@ -22,6 +22,10 @@ const HomePage = ( { movies, genres,setIsMovieModalOpen}) => {
               movies={movies.filter((movie) => movie.genre.includes(genre))}
               genre={genre}
               key={genre}
+
+              setIsMovieInfoModalOpen={setIsMovieInfoModalOpen}
+              setChosenMovie={setChosenMovie}
+
             />
           </>
         ))}

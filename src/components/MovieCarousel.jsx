@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 
-const MovieCarousel = ({ movies, genre }) => {
+const MovieCarousel = ({ movies, genre, setIsMovieInfoModalOpen,setChosenMovie }) => {
   //movies is an array of objects with movies of one genre
   //genre is a string with the genre name 
   //idFromGenre is a string with the genre name in lowercase  without spaces + "Carousel" 
@@ -35,6 +35,10 @@ const MovieCarousel = ({ movies, genre }) => {
           // make pointer when hover
           className="aspect-video w-48 lg:w-64  object-cover float-left hover:scale-125  duration-300 hover:brightness-50 hover:cursor-pointer shadow-xl shadow-black/100 "
           key={movie.title}
+          onClick={() => {
+            setIsMovieInfoModalOpen(true);
+            setChosenMovie(movie);
+            }}
         />
       ))}
 
