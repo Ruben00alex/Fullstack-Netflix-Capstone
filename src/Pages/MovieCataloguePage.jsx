@@ -62,8 +62,8 @@ const MovieCataloguePage = ({
 
   return (
     <>
-      <div className="flex flex-col items-center mt-16">
-        <div className="flex flex-col lg:flex-row  w-full gap-2">
+      <div className="flex flex-col items-center mt-16  ">
+        <div className="flex flex-col lg:flex-row   gap-2 ">
           <input
             type="text"
             placeholder="Search by title, genre, director, year"
@@ -102,12 +102,16 @@ const MovieCataloguePage = ({
           </div>
         </div>
       </div>
-      {/* if the search term is empty, we will display the total number of movies in the catalogue, else we will display the number of results */}
         <div className="flex flex-col items-center mt-4">   
         <h1 className="text-2xl text-white">
             {searchTerm == "" ? "Total movies" : "Results"}:{" "}
             {filteredMovies.length}
         </h1>
+        {filteredMovies.length == 0 && (
+            <h1 className="text-2xl text-white">
+                No results found for "{searchTerm}"
+            </h1>
+        )}
         </div>
       <MovieCatalogueGrid
         movies={filteredMovies}

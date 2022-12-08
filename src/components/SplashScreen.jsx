@@ -1,4 +1,4 @@
-const SplashScreen = ({movie , setIsMovieModalOpen}) => {
+const SplashScreen = ({movie , setIsMovieModalOpen, addToWatchList,watchList}) => {
   return (
     <div className="relative text-white ">
         <img
@@ -15,8 +15,11 @@ const SplashScreen = ({movie , setIsMovieModalOpen}) => {
           <p className="text-md ">{movie.runTime}</p>
           <p className="text-sm">{movie.genre[0]}</p>
           <p className="text-sm">{movie.director}</p>
-          <button className=" bg-slate-700 text-white hover:text-black hover:bg-red-600 duration-300 m-4 px-4 py-2 ">
-            Add to Watchlist
+          <button className=" bg-slate-700 text-white hover:text-black hover:bg-red-600 duration-300 m-4 px-4 py-2 " onClick={() => addToWatchList(movie)}>
+            {/* If the movie is already in the watchlist, display "Remove from watchlist" */}
+            {/* Otherwise, display "Add to watchlist" */}
+            {watchList.find((item) => item.id === movie.id) ? "Remove from watchlist" : "Add to watchlist"}
+
           </button>
           <button
             className=" bg-black text-white hover:text-black hover:bg-red-600 duration-300 m-4 px-4 py-2  border-2 border-white rounded-lg"

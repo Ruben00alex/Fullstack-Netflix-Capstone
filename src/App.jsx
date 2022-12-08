@@ -9,6 +9,7 @@ import LandingPage from "./Pages/LandingPage";
 import MovieCataloguePage from "./Pages/MovieCataloguePage";
 import MovieInfoModal from "./components/Modals/MovieInfoModal";
 import AdminPage from "./Pages/AdminPage";
+import MyListPage from "./Pages/MyListPage";
 function App() {
   let [isMovieModalOpen, setIsMovieModalOpen] = useState(false);
 
@@ -82,6 +83,17 @@ function App() {
     },
   ]);
 
+  let [watchList, setWatchList] = useState([{
+    id: 6,
+    title: "Schindler's List",
+    plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution ",
+    year: 1993,
+    cover:
+      "https://occ-0-1007-444.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABdhQO6S8ICyAqtSM7d8w-L_l6oO8ze4GRzEmfpO_idOU1EXMgzjrZc5swsBDAdyD0GhlCZSHmezXh2sOqe9aEqoIDXuXkw6IjUEP.jpg?r=9a0",
+    runTime: "195 min",
+    genre: ["Biography", "Drama", "History"],
+    director: "Steven Spielberg",
+  }]);
   let [genres, setGenres] = useState([]);
 
   //here we are using the useEffect hook to set the genres state every time the movies state changes, like when we add a new movie or delete
@@ -99,6 +111,23 @@ function App() {
   }, [movies]);
 
   let [chosenMovie, setChosenMovie] = useState({});
+
+
+  const addToWatchList = (movie) => {
+    let newWatchList = [...watchList];
+    let movieIndex = newWatchList.findIndex((m) => m.id === movie.id);
+    
+    if (movieIndex !== -1) {//if the movie is already in the watchlist, remove it
+      newWatchList.splice(movieIndex, 1);
+      setWatchList(newWatchList);
+      return;
+    }
+
+    console.log("adding to watchlist" , movie);
+
+    setWatchList([...watchList, movie]);
+  };
+
   return (
     <>
       <NavBar />
@@ -114,6 +143,8 @@ function App() {
               isMovieModalOpen={isMovieModalOpen}
               setChosenMovie={setChosenMovie}
               setIsMovieInfoModalOpen={setIsMovieInfoModalOpen}
+              addToWatchList={addToWatchList}
+              watchList={watchList}
             />
           }
         ></Route>
@@ -140,6 +171,8 @@ function App() {
             />
           }
         ></Route>
+
+        <Route path ="/MyList" element={<MyListPage watchList={watchList} />}></Route>
       </Routes>
 
       <Modal

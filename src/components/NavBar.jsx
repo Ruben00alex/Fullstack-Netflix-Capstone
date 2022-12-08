@@ -46,9 +46,12 @@ const NavBar = () => {
                 Movies
               </a>
             </Link>
+            <Link to="/MyList">
+
             <a href="#" className="hover:text-white duration-500">
               My List
             </a>
+            </Link>
 
             <Link to="/admin">
               <a href="#" className="hover:text-white duration-500">

@@ -1,15 +1,17 @@
 import MovieCarousel from "../components/MovieCarousel";
 import SplashScreen from "../components/SplashScreen";
 import { useEffect, useState } from "react";
-const HomePage = ( { movies, genres,setIsMovieModalOpen,setIsMovieInfoModalOpen,setChosenMovie}) => {
+const HomePage = ( { movies, genres,setIsMovieModalOpen,setIsMovieInfoModalOpen,setChosenMovie , addToWatchList,watchList} ) => {
     let [movieChosenRandomly, setMovieChosenRandomly] = useState(movies[Math.floor(Math.random() * movies.length)])
 
     return (
     <div  className="flex flex-col ">
       <SplashScreen
-
+addToWatchList={addToWatchList}
         movie={movieChosenRandomly}
         setIsMovieModalOpen={setIsMovieModalOpen}
+
+        watchList = {watchList}
       />
 
       <div className="flex flex-col ">
@@ -22,7 +24,6 @@ const HomePage = ( { movies, genres,setIsMovieModalOpen,setIsMovieInfoModalOpen,
               movies={movies.filter((movie) => movie.genre.includes(genre))}
               genre={genre}
               key={genre}
-
               setIsMovieInfoModalOpen={setIsMovieInfoModalOpen}
               setChosenMovie={setChosenMovie}
 
