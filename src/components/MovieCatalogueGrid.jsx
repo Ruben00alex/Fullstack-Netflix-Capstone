@@ -9,12 +9,12 @@ const MovieCatalogueGrid = ({
 }) => {
   const { watchList, addToWatchList } = useContext(MoviesContext);
   return (
-    <div className="flex flex-col items-center mt-16 bg-slate-700 p-4 w-fit mx-auto ">
-      <div className=" mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 gap-y-8 ">
-        {movies.map((movie) => (
-          <>
+    <>
+      <div className="flex flex-col items-center mt-16 bg-slate-700 p-4 w-fit mx-auto ">
+        <div className=" mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-12">
+          {movies.map((movie) => (
             <div
-              className="aspect-video w-48 lg:w-72  object-cover float-left hover:scale-125  duration-300 hover:brightness-50 hover:cursor-pointer shadow-xl shadow-black/100 "
+              className="aspect-video w-48 lg:w-72  object-cover float-left hover:scale-125  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
               style={{
                 backgroundImage: `url(${movie.cover})`,
                 backgroundSize: "cover",
@@ -22,8 +22,9 @@ const MovieCatalogueGrid = ({
               }}
               key={movie.title}
             >
+              {/* gradient overlay */}
               <div
-                className="aspect-video w-48 lg:w-72 absolute  "
+                className="aspect-video w-48 lg:w-72 absolute  object-cover -z-1  bg-gradient-to-b  hover:opacity-0 duration-700 to-black/20 from-transparent"
                 onClick={() => {
                   setIsMovieInfoModalOpen(true);
                   setChosenMovie(movie);
@@ -44,10 +45,10 @@ const MovieCatalogueGrid = ({
                 )}
               </button>
             </div>
-          </>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

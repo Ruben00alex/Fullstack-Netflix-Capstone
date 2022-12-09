@@ -1,9 +1,8 @@
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import Modal from "react-modal";
-import { useState } from "react";
 const schemaMovie = yup.object().shape({
   title: yup.string().required(),
   plot: yup.string().required(),
@@ -28,12 +27,12 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      className="bg-black text-white absolute  w-full lg:w-1/3 h-auto mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-2 flex flex-col backdrop:bg-black/50 backdrop-blur-sm "
-      overlayClassName="fixed inset-0 bg-white/30 backdrop-filter backdrop-blur-sm z-20"
+      className="bg-black text-white absolute  w-full lg:w-1/4 h-auto mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-2 flex flex-col backdrop:bg-black/50 backdrop-blur-sm "
+      overlayClassName="fixed inset-0 bg-black/30 backdrop-filter backdrop-blur-sm z-20"
     >
       <div>
         <form onSubmit={handleSubmit(onAddMovie)}>
-          <div className="flex flex-col text-slate-800 mx-8 py-4">
+          <div className="flex flex-col text-slate-800 mx-24 py-4">
             <label htmlFor="title" className="text-white">
               Title
             </label>
@@ -48,10 +47,11 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
             <label htmlFor="plot" className="text-white">
               Plot
             </label>
-            <input
+            <textarea
               type="text"
               id="plot"
-              className="p-2 rounded-md"
+              // aligns the text to the top of the textarea
+              className="p-2 rounded-md  resize-none  text-top"
               {...register("plot")}
             />
             <p className="text-red-500">{errors.plot?.message}</p>

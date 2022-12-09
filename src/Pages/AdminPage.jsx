@@ -62,7 +62,7 @@ const AdminPage = () => {
     <>
       <div className="flex flex-col items-center mt-16">
         <button
-          className="bg-slate-200 my-auto text-slate-800 font-bold py-2 px-4 mx-auto rounded-full"
+          className="bg-slate-200 my-auto text-slate-800 font-bold py-2 px-4 mx-auto rounded-full border-2 hover:bg-black hover:text-white hover:border-white duration-300 "
           onClick={() => setIsAddMovieModalOpen(true)}
         >
           Add Movie
