@@ -1,4 +1,10 @@
-const SplashScreen = ({movie , setIsMovieModalOpen, addToWatchList,watchList}) => {
+import { useContext } from "react";
+import MoviesContext from "../contexts/MoviesContext";
+const SplashScreen = ({movie}) => {
+
+  //use Context instead of passing props
+  const {setIsMovieModalOpen, addToWatchList,watchList} = useContext(MoviesContext)
+  
   return (
     <div className="relative text-white ">
         <img
@@ -15,9 +21,8 @@ const SplashScreen = ({movie , setIsMovieModalOpen, addToWatchList,watchList}) =
           <p className="text-md ">{movie.runTime}</p>
           <p className="text-sm">{movie.genre[0]}</p>
           <p className="text-sm">{movie.director}</p>
-          <button className=" bg-slate-700 text-white hover:text-black hover:bg-red-600 duration-300 m-4 px-4 py-2 " onClick={() => addToWatchList(movie)}>
-            {/* If the movie is already in the watchlist, display "Remove from watchlist" */}
-            {/* Otherwise, display "Add to watchlist" */}
+          <button className={` bg-slate-700 text-white hover:text-black  ${
+watchList.find((item) => item.id === movie.id) ? "bg-red-600 hover:bg-slate-900 hover:text-slate-300" : "bg-slate-700 hover:bg-red-600"} hover:bg-red-600 duration-300 m-4 px-4 py-2 `} onClick={() => addToWatchList(movie)}>
             {watchList.find((item) => item.id === movie.id) ? "Remove from watchlist" : "Add to watchlist"}
 
           </button>

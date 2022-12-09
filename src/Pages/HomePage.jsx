@@ -1,22 +1,39 @@
 import MovieCarousel from "../components/MovieCarousel";
 import SplashScreen from "../components/SplashScreen";
-import { useEffect, useState } from "react";
-const HomePage = ( { movies, genres,setIsMovieModalOpen,setIsMovieInfoModalOpen,setChosenMovie , addToWatchList,watchList} ) => {
-    let [movieChosenRandomly, setMovieChosenRandomly] = useState(movies[Math.floor(Math.random() * movies.length)])
+import { useEffect, useState, useContext } from "react";
 
-    return (
-    <div  className="flex flex-col ">
-      <SplashScreen
-addToWatchList={addToWatchList}
-        movie={movieChosenRandomly}
-        setIsMovieModalOpen={setIsMovieModalOpen}
+import MoviesContext from "../contexts/MoviesContext";
 
-        watchList = {watchList}
-      />
+const HomePage = () => {
+  const {
+    movies,
+    setMovies,
+    genres,
+    addToWatchList,
+    watchList,
+    setIsMovieModalOpen,
+    setIsMovieInfoModalOpen,
+    setChosenMovie,
+  } = useContext(MoviesContext);
+  let [movieChosenRandomly, setMovieChosenRandomly] = useState(
+    movies[Math.floor(Math.random() * movies.length)]
+  );
 
-      <div className="flex flex-col ">
-        {genres.map((genre) => (
+  return (
+    <div className="flex flex-col ">
+      <SplashScreen movie={movieChosenRandomly} />
+
+        {watchList.length != 0 ? (
           <>
+            <h2 className="text-2xl font-bold mt-8 text-slate-200  w-fit ml-4 p-2  rounded-lg">
+              My List
+            </h2>
+            <MovieCarousel movies={watchList} genre="My List" />
+          </>
+        )
+        : null}
+        {genres.map((genre) => (
+          <div className="flex flex-row flex-wrap">
             <h2 className="text-2xl font-bold mt-8 text-slate-200  w-fit ml-4 p-2  rounded-lg">
               {genre}
             </h2>
@@ -24,13 +41,9 @@ addToWatchList={addToWatchList}
               movies={movies.filter((movie) => movie.genre.includes(genre))}
               genre={genre}
               key={genre}
-              setIsMovieInfoModalOpen={setIsMovieInfoModalOpen}
-              setChosenMovie={setChosenMovie}
-
             />
-          </>
+          </div>
         ))}
-      </div>
     </div>
   );
 };

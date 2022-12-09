@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 
 import FuzzySearch from "fuzzy-search";
 import MovieCatalogueGrid from "../components/MovieCatalogueGrid";
+import MoviesContext from "../contexts/MoviesContext";
+const MovieCataloguePage = () => {
 
-const MovieCataloguePage = ({
-  movies,
-  setIsMovieInfoModalOpen,
-  setChosenMovie,
-}) => {
+  //use context instead of props
+
+  const {movies,setIsMovieInfoModalOpen,setChosenMovie,  } = useContext(MoviesContext)
+
+
   let [filteredMovies, setFilteredMovies] = useState(movies);
 
   let [searchTerm, setSearchTerm] = useState("");
@@ -55,6 +57,8 @@ const MovieCataloguePage = ({
         return a.title.localeCompare(b.title);
       } else if (sortType == "title-descending") {
         return b.title.localeCompare(a.title);
+      }else if (sortType == "All") {
+               return a.id - b.id;
       }
     });
     setFilteredMovies(sortedMovies);
