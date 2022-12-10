@@ -37,26 +37,26 @@ const NavBar = () => {
           </Link>
           <div className="flex flex-row ml-auto items-center gap-4 bg-[#141414]/60 p-2">
             <Link to="/home">
-              <a href="#" className="hover:text-white duration-500">
+              <p className="hover:text-white duration-500">
                 Home
-              </a>
+              </p>
             </Link>
             <Link to="/catalogue">
-              <a href="" className="hover:text-white duration-500">
+              <p className="hover:text-white duration-500">
                 Movies
-              </a>
+              </p>
             </Link>
             <Link to="/MyList">
 
-            <a href="#" className="hover:text-white duration-500">
+            <p className="hover:text-white duration-500">
               My List
-            </a>
+            </p>
             </Link>
 
             <Link to="/admin">
-              <a href="#" className="hover:text-white duration-500">
+              <p  className="hover:text-white duration-500">
                 Admin
-              </a>
+              </p>
             </Link>
           </div>
         </div>

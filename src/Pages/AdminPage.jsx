@@ -7,12 +7,24 @@ import MoviesContext from "../contexts/MoviesContext";
 
 import { useState } from "react";
 import Modal from "react-modal";
+
+import { QueryClient } from 'react-query';
+
+
+import useMoviesData from "../hooks/useMoviesData";
+
+
 const AdminPage = () => {
   const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false);
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  })
   const {
-    movies,
-    setIsMovieInfoModalOpen,
     setChosenMovie,
     setMovies,
     chosenMovie,
@@ -22,19 +34,19 @@ const AdminPage = () => {
 
   const [isMovieEditModalOpen, setIsMovieEditModalOpen] = useState(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+
+
+  const { data: movies, isLoading, error } = useMoviesData.getMoviesData();
+  
+
   const onAddMovie = (movie) => {
-    let newMovies = [...movies];
-
-    let maxId = Math.max(...newMovies.map((movie) => movie.id));
-    movie.id = maxId + 1;
-
-    movie.genre = movie.genre.split(",").map((genre) => genre.trim());
-
-    newMovies.push(movie);
-
-    setMovies(newMovies);
-    console.log(movie);
+    
+    useMoviesData.useSaveMovie(movie);
+    setIsAddMovieModalOpen(false);
   };
+
+
+
 
   const handleDelete = (movie) => {
     let newMovies = [...movies];
@@ -46,8 +58,7 @@ const AdminPage = () => {
     if (watchListIndex !== -1) {
       addToWatchList(movie);
     }
-    
-    
+
     setMovies(newMovies);
   };
 
@@ -65,13 +76,20 @@ const AdminPage = () => {
           className="bg-slate-200 my-auto text-slate-800 font-bold py-2 px-4 mx-auto rounded-full border-2 hover:bg-black hover:text-white hover:border-white duration-300 "
           onClick={() => setIsAddMovieModalOpen(true)}
         >
-          Add Movie
+          Add Movie2
         </button>
+
+
+//if its loading, show loading else show the movies
+        {isLoading ? (
+          <div className="text-white">Loading...</div>
+        ) : (
         <MovieCatalogueGrid
           movies={movies}
           setIsMovieInfoModalOpen={setIsAdminModalOpen}
           setChosenMovie={setChosenMovie}
         />
+        )}
       </div>
 
       <AddMovieModal
@@ -86,7 +104,6 @@ const AdminPage = () => {
         // height of 80% of the screen
         className="bg-slate-700/70 text-white absolute lg:w-fit w-full h-fit   mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl  flex flex-col backdrop:bg-black/50 backdrop-blur-sm "
         overlayClassName="fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-sm z-20"
-
         ariaHideApp={false}
       >
         <MovieInfoModal

@@ -20,7 +20,7 @@ const MovieCatalogueGrid = ({
                 backgroundSize: "cover",
                 backgroundPosition: "center center",
               }}
-              key={movie.title}
+              key={movie.id}
             >
               {/* gradient overlay */}
               <div

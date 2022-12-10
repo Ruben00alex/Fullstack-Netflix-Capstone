@@ -10,6 +10,8 @@ const schemaMovie = yup.object().shape({
   director: yup.string().required(),
   year: yup.number().required(),
   cover: yup.string().required(),
+  runTime: yup.string().required(),
+  video: yup.string().required(),
 });
 
 const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
@@ -19,6 +21,22 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
     formState: { errors },
     watch,
   } = useForm({
+    defaultValues: {
+      title: "Iron Man",
+      plot: "A billionaire industrialist and genius inventor, Tony Stark, is conducting weapons tests overseas when he is attacked and captured",
+      genre: "Action, Adventure, Sci-Fi",
+      director: "Jon Favreau",
+      year: 2008,
+      cover: "https://i.ytimg.com/vi/8hYlB38asDY/maxresdefault.jpg",
+      runTime: "126 min",
+      video: "https://www.youtube.com/watch?v=8hYlB38asDY",
+    },
+    
+
+
+
+
+
     resolver: yupResolver(schemaMovie),
   });
 
@@ -29,6 +47,7 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
       onRequestClose={onClose}
       className="bg-black text-white absolute  w-full lg:w-1/4 h-auto mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-2 flex flex-col backdrop:bg-black/50 backdrop-blur-sm "
       overlayClassName="fixed inset-0 bg-black/30 backdrop-filter backdrop-blur-sm z-20"
+      ariaHideApp={false}
     >
       <div>
         <form onSubmit={handleSubmit(onAddMovie)}>
@@ -56,6 +75,16 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
             />
             <p className="text-red-500">{errors.plot?.message}</p>
 
+            <label htmlFor="runTime" className="text-white">
+              Run Time
+            </label>
+            <input
+              type="text"
+              id="runTime"
+              className="p-2 rounded-md"
+              {...register("runTime")}
+            />
+            <p className="text-red-500">{errors.runTime?.message}</p>
             <label htmlFor="genre" className="text-white">
               Genre
             </label>
@@ -89,6 +118,17 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
             />
             <p className="text-red-500">{errors.year?.message}</p>
 
+            <label htmlFor="video" className="text-white">
+              Video URL
+            </label>
+
+            <input
+              type="text"
+              id="video"
+              className="p-2 rounded-md"
+              {...register("video")}
+            />
+            <p className="text-red-500">{errors.video?.message}</p>
             <label htmlFor="cover" className="text-white">
               Cover
             </label>
@@ -104,11 +144,17 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
             )}
 
             <div className="flex flex-row gap-2 mx-auto my-4">
-              <button type="submit" className="text-white bg-slate-700 px-4 py-2 rounded-md">
+              <button
+                type="submit"
+                className="text-white bg-slate-700 px-4 py-2 rounded-md"
+              >
                 Add Movie
               </button>
 
-              <button type="reset" className="text-white bg-slate-700 px-4 py-2  rounded-md">
+              <button
+                type="reset"
+                className="text-white bg-slate-700 px-4 py-2  rounded-md"
+              >
                 Reset
               </button>
             </div>

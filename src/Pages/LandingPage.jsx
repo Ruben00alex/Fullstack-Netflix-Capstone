@@ -21,7 +21,7 @@ const LandingPage = () => {
                         className="w-1/2 object-contain "
                     />
                     <h1 className="text-4xl font-bold text-white mt-4 mx-8 text-center">
-                        Unlimited movies, TV shows, and more.
+                        Unlimited movies, AAAAAs, and more.
                     </h1>
                     <Link to="/home">
                     <button className="bg-red-600 text-white px-4 py-2 rounded-lg mt-4">

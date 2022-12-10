@@ -13,11 +13,17 @@ import MyListPage from "./Pages/MyListPage";
 
 import MoviesContext from "./contexts/MoviesContext";
 
+import {useQuery} from "react-query";
+
+import { ReactQueryDevtools } from 'react-query/devtools'
 function App() {
   let [isMovieModalOpen, setIsMovieModalOpen] = useState(false);
 
   let [isMovieInfoModalOpen, setIsMovieInfoModalOpen] = useState(false);
-  // 20 movies
+
+
+
+
   let [movies, setMovies] = useState([
     {
       id: 1,
@@ -205,6 +211,8 @@ function App() {
             isAdmin={false}
           />
         </Modal>
+
+<ReactQueryDevtools initialIsOpen={false} />
       </MoviesContext.Provider>
     </>
   );
