@@ -22,14 +22,16 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
     watch,
   } = useForm({
     defaultValues: {
-      title: "Iron Man",
-      plot: "A billionaire industrialist and genius inventor, Tony Stark, is conducting weapons tests overseas when he is attacked and captured",
+      title: "Hunger Games",
+      plot:  "Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games: a televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death.",
       genre: "Action, Adventure, Sci-Fi",
-      director: "Jon Favreau",
-      year: 2008,
-      cover: "https://i.ytimg.com/vi/8hYlB38asDY/maxresdefault.jpg",
-      runTime: "126 min",
-      video: "https://www.youtube.com/watch?v=8hYlB38asDY",
+      director: "Gary Ross",
+      year: 2012,
+      cover: "https://occ.a.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdo7gQYaAYYzCs0KS3bJEX7R1n7HMHihUDmGSjFKSw7Ccxs7sdMFDNDpySP2Kpaq78fgw8FMBkfHdQnqR3LY9FAWf5NEm4cl77mo.jpg?r=d2b",
+      runTime: "142 min",
+      video: "https://www.youtube.com/watch?v=mfmrPu43DF8",
+
+
     },
     
 

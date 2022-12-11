@@ -41,7 +41,7 @@ const MovieCarousel = ({ movies, genre }) => {
             alt={movie.title}
             // make pointer when hover
             className="aspect-video w-48 lg:w-64  object-cover float-left  hover:scale-125 duration-300 hover:brightness-50 hover:cursor-pointer shadow-xl shadow-black/100 "
-            key={movie.title}
+            key={movie._id}
             onClick={() => {
               setIsMovieInfoModalOpen(true);
               setChosenMovie(movie);
@@ -54,10 +54,8 @@ const MovieCarousel = ({ movies, genre }) => {
             }}
           >
             {/* if the movie is already in the watchlist, show a checkmark, otherwise show a plus sign */}
-            {watchList.find((movie1) => movie1.id === movie.id) ? (
-
+            {watchList.find((movie1) => movie1._id === movie._id) ? (
               <p className="text-sm p-0">✓</p>
-              
             ) : (
               <AiOutlinePlus className="text-sm p-0" />
             )}

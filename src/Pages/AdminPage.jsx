@@ -1,52 +1,40 @@
-import AddMovieModal from "../components/Modals/AddMovieModal";
 import MovieInfoModal from "../components/Modals/MovieInfoModal";
 import MovieCatalogueGrid from "../components/MovieCatalogueGrid";
 
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import MoviesContext from "../contexts/MoviesContext";
 
-import { useState } from "react";
 import Modal from "react-modal";
 
-import { QueryClient } from 'react-query';
-
-
-import useMoviesData from "../hooks/useMoviesData";
-
+import { useMoviesData, useSaveMovie } from "../hooks/useMoviesDataHook";
+import AddMovieModal from "../components/Modals/AddMovieModal";
 
 const AdminPage = () => {
+
+  const { setChosenMovie, setMovies, chosenMovie, watchList, addToWatchList } =
+    useContext(MoviesContext);
+
   const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false);
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
-  })
-  const {
-    setChosenMovie,
-    setMovies,
-    chosenMovie,
-    watchList,
-    addToWatchList,
-  } = useContext(MoviesContext);
-
-  const [isMovieEditModalOpen, setIsMovieEditModalOpen] = useState(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
+  const { data: movies, isLoading, error } = useMoviesData();
 
-  const { data: movies, isLoading, error } = useMoviesData.getMoviesData();
-  
+  let { mutate: saveMovieMutation } = useSaveMovie();
 
   const onAddMovie = (movie) => {
-    
-    useMoviesData.useSaveMovie(movie);
+    //make the genre an array (separated by commas and remove spaces)
+    movie.genre = movie.genre.split(",").map((genre) => genre.trim());
+
+    //turn the youtube link into an embed link
+    let youtubeLink = movie.video;
+    let youtubeId = youtubeLink.split("v=")[1];
+    movie.video = youtubeId;
+    console.log(movie.video);
+
+    saveMovieMutation(movie);
     setIsAddMovieModalOpen(false);
   };
-
-
-
 
   const handleDelete = (movie) => {
     let newMovies = [...movies];
@@ -69,6 +57,19 @@ const AdminPage = () => {
     setMovies(newMovies);
   };
 
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        {" "}
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-slate-200"></div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex flex-col items-center mt-16">
@@ -80,16 +81,11 @@ const AdminPage = () => {
         </button>
 
 
-//if its loading, show loading else show the movies
-        {isLoading ? (
-          <div className="text-white">Loading...</div>
-        ) : (
         <MovieCatalogueGrid
           movies={movies}
           setIsMovieInfoModalOpen={setIsAdminModalOpen}
           setChosenMovie={setChosenMovie}
         />
-        )}
       </div>
 
       <AddMovieModal
@@ -113,6 +109,7 @@ const AdminPage = () => {
           movie={chosenMovie}
           setIsMovieInfoModalOpen={setIsAdminModalOpen}
           isAdmin={true}
+          setMovieChosen={setChosenMovie}
         />
       </Modal>
     </>

@@ -10,11 +10,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
+  <React.StrictMode>
       <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
         <App className="bg-slate-600" />
+  </QueryClientProvider>
       </BrowserRouter>
     </React.StrictMode>
-  </QueryClientProvider>
 );

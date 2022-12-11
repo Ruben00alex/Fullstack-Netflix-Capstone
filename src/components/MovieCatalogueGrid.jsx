@@ -6,8 +6,15 @@ const MovieCatalogueGrid = ({
   movies,
   setIsMovieInfoModalOpen,
   setChosenMovie,
+  moviesLoading,
 }) => {
+
+
   const { watchList, addToWatchList } = useContext(MoviesContext);
+
+  if (moviesLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="flex flex-col items-center mt-16 bg-slate-700 p-4 w-fit mx-auto ">
@@ -20,7 +27,7 @@ const MovieCatalogueGrid = ({
                 backgroundSize: "cover",
                 backgroundPosition: "center center",
               }}
-              key={movie.id}
+              key={movie._id}
             >
               {/* gradient overlay */}
               <div
@@ -38,7 +45,7 @@ const MovieCatalogueGrid = ({
                 }}
               >
                 {/* if the movie is already in the watchlist, show a checkmark, otherwise show a plus sign */}
-                {watchList.find((movie1) => movie1.id === movie.id) ? (
+                {watchList.find((movie1) => movie1._id === movie._id) ? (
                   <p className="text-sm my-0">✓</p>
                 ) : (
                   <AiOutlinePlus />
