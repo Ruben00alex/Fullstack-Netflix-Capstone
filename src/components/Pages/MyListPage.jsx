@@ -1,5 +1,5 @@
-import MovieCarousel from "../components/MovieCarousel";
-import MovieCatalogueGrid from "../components/MovieCatalogueGrid";
+import MovieCarousel from "../MovieCarousel";
+import MovieCatalogueGrid from "../MovieCatalogueGrid";
 
 const MyListPage = ({ watchList, onRemoveMovie }) => {
 

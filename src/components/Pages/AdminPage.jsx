@@ -1,16 +1,15 @@
-import MovieInfoModal from "../components/Modals/MovieInfoModal";
-import MovieCatalogueGrid from "../components/MovieCatalogueGrid";
+import MovieInfoModal from "../Modals/MovieInfoModal";
+import MovieCatalogueGrid from "../MovieCatalogueGrid";
 
 import { useContext, useState, useEffect } from "react";
-import MoviesContext from "../contexts/MoviesContext";
+import MoviesContext from "../../contexts/MoviesContext";
 
 import Modal from "react-modal";
 
-import { useMoviesData, useSaveMovie } from "../hooks/useMoviesDataHook";
-import AddMovieModal from "../components/Modals/AddMovieModal";
+import { useMoviesData, useSaveMovie } from "../../hooks/useMoviesDataHook";
+import AddMovieModal from "../Modals/AddMovieModal";
 
 const AdminPage = () => {
-
   const { setChosenMovie, setMovies, chosenMovie, watchList, addToWatchList } =
     useContext(MoviesContext);
 
@@ -18,19 +17,25 @@ const AdminPage = () => {
 
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
-  const { data: movies, isLoading, error } = useMoviesData();
+  //the default values for the form in the modal, if we are editing a movie the values will be the movie's values, if we are adding a movie the values will be empty, so we have to initialize them to empty, like this:
+  const [defaultFormValues, setDefaultFormValues] = useState(null);
 
+  const [movieId, setMovieId] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const { data: movies, isLoading, error } = useMoviesData();
   let { mutate: saveMovieMutation } = useSaveMovie();
 
   const onAddMovie = (movie) => {
     //make the genre an array (separated by commas and remove spaces)
+
+
     movie.genre = movie.genre.split(",").map((genre) => genre.trim());
+
 
     //turn the youtube link into an embed link
     let youtubeLink = movie.video;
     let youtubeId = youtubeLink.split("v=")[1];
     movie.video = youtubeId;
-    console.log(movie.video);
 
     saveMovieMutation(movie);
     setIsAddMovieModalOpen(false);
@@ -50,15 +55,48 @@ const AdminPage = () => {
     setMovies(newMovies);
   };
 
-  const handleEdit = (movie) => {
-    let newMovies = [...movies];
-    let movieIndex = newMovies.findIndex((m) => m.id === movie.id);
-    newMovies[movieIndex] = movie;
-    setMovies(newMovies);
+  const handleEdit =async (id) => {
+    setMovieId(id);
+    setIsEdit(true);
+    setIsAdminModalOpen(false);
+    //find the movie in the movies array
+    console.log("EDITING MOVIE" , id)
+    let movie = await movies.find((movie) => movie._id === id);
+    
+
+    //spread the movie object so we can edit it
+    let newMovie = { ...movie };
+
+    newMovie.genre = movie.genre.join(", ");
+    //turn youtubeID into a youtube link
+    newMovie.video = `https://www.youtube.com/watch?v=${movie.video}`;
+
+    //set the default values for the form to the movie's values
+    setDefaultFormValues(newMovie);
+
+    setIsAddMovieModalOpen(true);
   };
 
+
+  const editMovie = (movie) => {
+    //make the genre an array (separated by commas and remove spaces)
+    movie.genre = movie.genre.split(",").map((genre) => genre.trim());
+    console.log(movie.genre)
+
+    let youtubeLink = movie.video;
+    let youtubeId = youtubeLink.split("v=")[1];
+    movie.video = youtubeId;
+    console.log(movie.video)
+
+  }
+
   if (error) {
-    return <div>Something went wrong</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        {" "}
+        <div className="">Something went wrong</div>
+      </div>
+    );
   }
 
   if (isLoading) {
@@ -75,11 +113,14 @@ const AdminPage = () => {
       <div className="flex flex-col items-center mt-16">
         <button
           className="bg-slate-200 my-auto text-slate-800 font-bold py-2 px-4 mx-auto rounded-full border-2 hover:bg-black hover:text-white hover:border-white duration-300 "
-          onClick={() => setIsAddMovieModalOpen(true)}
+          onClick={() => {
+            setIsEdit(false);
+            setDefaultFormValues(null);
+            setIsAddMovieModalOpen(true);
+          }}
         >
-          Add Movie2
+          Add Movie
         </button>
-
 
         <MovieCatalogueGrid
           movies={movies}
@@ -92,6 +133,10 @@ const AdminPage = () => {
         isOpen={isAddMovieModalOpen}
         onClose={() => setIsAddMovieModalOpen(false)}
         onAddMovie={onAddMovie}
+        defaultFormValues={defaultFormValues}
+        isEdit={isEdit}
+        setIsAddMovieModalOpen={setIsAddMovieModalOpen}
+        handleEdit={editMovie}
       />
 
       <Modal
@@ -105,11 +150,14 @@ const AdminPage = () => {
         <MovieInfoModal
           // handleDelete, handleEdit
           handleDelete={handleDelete}
-          handleEdit={() => {}}
+          handleEdit={handleEdit}
           movie={chosenMovie}
           setIsMovieInfoModalOpen={setIsAdminModalOpen}
           isAdmin={true}
           setMovieChosen={setChosenMovie}
+          setDefaultFormValues={setDefaultFormValues}
+          setIsEdit={setIsEdit}
+          setIsAddMovieModalOpen={setIsAddMovieModalOpen}
         />
       </Modal>
     </>

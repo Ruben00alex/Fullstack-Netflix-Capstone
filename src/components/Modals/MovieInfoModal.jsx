@@ -16,10 +16,8 @@ const MovieInfoModal = ({
   isAdmin,
   setIsMovieInfoModalOpen,
   setIsMovieModalOpen,
-  setChosenMovie,
+  handleEdit
 }) => {
-  console.log(movie);
-
 
   const { addToWatchList, watchList } = useContext(MoviesContext);
   return (
@@ -44,15 +42,28 @@ const MovieInfoModal = ({
               <h1 className="text-2xl lg:text-5xl font-bold my-0 text-white bg-black/50 p-2  rounded-lg w-[16ch]">
                 {movie.title} ({movie.year})
               </h1>
-              <button
-                className="    bg-black/50 hover:bg-red-600/70 duration-300 rounded-[100%]  z-[10000] "
-                onClick={() => {
-                  setIsMovieInfoModalOpen(false);
-                  setIsMovieModalOpen(true);
-                }}
-              >
-                <AiFillPlayCircle className="text-4xl text-white m-auto w-16 h-16" />
-              </button>
+              {/* edit button */}
+              {isAdmin ? ( // if admin is true then show the edit button instead of the play button
+                <button
+                  className="bg-black/50 hover:bg-red-600/70 duration-300 rounded-[100%]   z-[10000]  w-16 h-16 "
+                  onClick={() => {
+                    handleEdit(movie._id)
+                  }}
+                >
+                  Edit
+                </button>
+              ) : (
+                <button
+                  className="    bg-black/50 hover:bg-red-600/70 duration-300 rounded-[100%]  z-[10000] "
+                  onClick={() => {
+                    setIsMovieInfoModalOpen(false);
+                    setIsMovieModalOpen(true);
+                  }}
+                >
+                  <AiFillPlayCircle className="text-4xl text-white m-auto w-16 h-16" />
+                </button>
+              )}
+
               <button
                 className={`    bg-black/50 hover:bg-red-600/70 duration-300 rounded-[100%]  z-[10000] `}
               >

@@ -5,9 +5,9 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
 //import queryClient from "./queryClient";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
+import queryClient from "./react-query/client"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -1,6 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+
+import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
+
+import { useEffect, useState } from "react";
 
 import Modal from "react-modal";
 const schemaMovie = yup.object().shape({
@@ -14,34 +17,47 @@ const schemaMovie = yup.object().shape({
   video: yup.string().required(),
 });
 
-const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
+const AddMovieModal = ({
+  isOpen,
+  onClose,
+  onAddMovie,
+  defaultFormValues,
+  isEdit,
+  handleEdit,
+}) => {
+  console.log(defaultFormValues);
+
+  //reset the default values to empty if we are adding a movie
+
+  let defaultValues = {
+    title: "",
+    plot: "",
+    genre: "",
+    director: "",
+    year: 0,
+    cover: "",
+    runTime: "",
+    video: "",
+  };
+
+  console.log("VALUES");
+  console.log(defaultValues, typeof defaultValues);
   const {
+    reset,
+    control,
     register,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm({
-    defaultValues: {
-      title: "Hunger Games",
-      plot:  "Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games: a televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death.",
-      genre: "Action, Adventure, Sci-Fi",
-      director: "Gary Ross",
-      year: 2012,
-      cover: "https://occ.a.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABdo7gQYaAYYzCs0KS3bJEX7R1n7HMHihUDmGSjFKSw7Ccxs7sdMFDNDpySP2Kpaq78fgw8FMBkfHdQnqR3LY9FAWf5NEm4cl77mo.jpg?r=d2b",
-      runTime: "142 min",
-      video: "https://www.youtube.com/watch?v=mfmrPu43DF8",
-
-
-    },
-    
-
-
-
-
+    //use default values if they are passed in , otherwise use the default values
+    defaultValues: defaultFormValues || defaultValues,
 
     resolver: yupResolver(schemaMovie),
   });
-
+  useEffect(() => {
+    reset(defaultFormValues || defaultValues);
+  }, [defaultFormValues, reset]);
   let coverUrl = watch("cover");
   return (
     <Modal
@@ -52,97 +68,147 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
       ariaHideApp={false}
     >
       <div>
-        <form onSubmit={handleSubmit(onAddMovie)}>
+        <form
+          onSubmit={
+            //if we are editing a movie, call the handleEdit function and close the modal
+            isEdit
+              ? handleSubmit((data) => {
+                  handleEdit(data);
+                  onClose();
+                })
+              : //if we are adding a movie, call the onAddMovie function and close the modal
+                handleSubmit(onAddMovie)
+          }
+          component="form"
+          onReset={() => reset(defaultValues)}
+        >
           <div className="flex flex-col text-slate-800 mx-24 py-4">
-            <label htmlFor="title" className="text-white">
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              className="p-2 rounded-md"
-              {...register("title")}
+            <Controller
+              control={control}
+              name="title"
+              render={({ field, fieldState }) => (
+                <>
+                  {" "}
+                  <input
+                    {...field}
+                    label="title"
+                    className="p-2 rounded-md  resize-none  text-top"
+                  />
+                  <p className="text-red-500">{fieldState.error?.message}</p>
+                </>
+              )}
             />
-            <p className="text-red-500">{errors.title?.message}</p>
+            <Controller
+              control={control}
+              name="plot"
+              render={({ field, fieldState }) => (
+                <>
+                  <label htmlFor="plot" className="text-white">
+                    Plot
+                  </label>
+                  <textarea
+                    type="text"
+                    id="plot"
+                    // aligns the text to the top of the textarea
+                    className="p-2 rounded-md  resize-none  text-top"
+                    {...field}
+                  />
+                  <p className="text-red-500">{fieldState.error?.message}</p>
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="genre"
+              render={({ field, fieldState }) => (
+                <>
+                  <label htmlFor="genre" className="text-white">
+                    Genre
+                  </label>
+                  <input
+                    type="text"
+                    id="genre"
+                    className="p-2 rounded-md"
+                    {...field}
+                  />
+                  <p className="text-red-500">{fieldState.error?.message}</p>
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="director"
+              render={({ field, fieldState }) => (
+                <>
+                  <label htmlFor="director" className="text-white">
+                    Director
+                  </label>
+                  <input
+                    type="text"
+                    id="director"
+                    className="p-2 rounded-md"
+                    {...field}
+                  />
+                  <p className="text-red-500">{fieldState.error?.message}</p>
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="year"
+              render={({ field, fieldState }) => (
+                <>
+                  <label htmlFor="year" className="text-white">
+                    Year
+                  </label>
+                  <input
+                    type="number"
+                    id="year"
+                    className="p-2 rounded-md"
+                    {...field}
+                  />
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="cover"
+              render={({ field, fieldState }) => (
+                <>
+                  <label htmlFor="cover" className="text-white">
+                    Cover
+                  </label>
+                  <input
+                    type="text"
+                    id="cover"
+                    className="p-2 rounded-md"
+                    {...field}
+                  />
+                  <p className="text-red-500">{fieldState.error?.message}</p>
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="video"
+              render={({ field, fieldState }) => (
+                <>
+                  <label htmlFor="video" className="text-white">
+                    Video
+                  </label>
+                  <input
+                    type="text"
+                    id="video"
+                    className="p-2 rounded-md"
+                    {...field}
+                  />
+                  <p className="text-red-500">{fieldState.error?.message}</p>
+                </>
+              )}
+            />
 
-            <label htmlFor="plot" className="text-white">
-              Plot
-            </label>
-            <textarea
-              type="text"
-              id="plot"
-              // aligns the text to the top of the textarea
-              className="p-2 rounded-md  resize-none  text-top"
-              {...register("plot")}
-            />
-            <p className="text-red-500">{errors.plot?.message}</p>
-
-            <label htmlFor="runTime" className="text-white">
-              Run Time
-            </label>
-            <input
-              type="text"
-              id="runTime"
-              className="p-2 rounded-md"
-              {...register("runTime")}
-            />
-            <p className="text-red-500">{errors.runTime?.message}</p>
-            <label htmlFor="genre" className="text-white">
-              Genre
-            </label>
-            <input
-              type="text"
-              id="genre"
-              className="p-2 rounded-md"
-              {...register("genre")}
-            />
-            <p className="text-red-500">{errors.genre?.message}</p>
-
-            <label htmlFor="director" className="text-white">
-              Director
-            </label>
-            <input
-              type="text"
-              id="director"
-              className="p-2 rounded-md"
-              {...register("director")}
-            />
-            <p className="text-red-500">{errors.director?.message}</p>
-
-            <label htmlFor="year" className="text-white">
-              Year
-            </label>
-            <input
-              type="number"
-              id="year"
-              className="p-2 rounded-md"
-              {...register("year")}
-            />
-            <p className="text-red-500">{errors.year?.message}</p>
-
-            <label htmlFor="video" className="text-white">
-              Video URL
-            </label>
-
-            <input
-              type="text"
-              id="video"
-              className="p-2 rounded-md"
-              {...register("video")}
-            />
-            <p className="text-red-500">{errors.video?.message}</p>
-            <label htmlFor="cover" className="text-white">
-              Cover
-            </label>
-            <input
-              type="text"
-              id="cover"
-              className="p-2 rounded-md"
-              {...register("cover")}
-            />
-            <p className="text-red-500">{errors.cover?.message}</p>
             {coverUrl && (
-              <img src={coverUrl} alt="cover" className="w-full mx-auto" />
+              <img src={coverUrl} alt="cover" className="w-full mx-auto my-4" />
             )}
 
             <div className="flex flex-row gap-2 mx-auto my-4">
@@ -150,7 +216,7 @@ const AddMovieModal = ({ isOpen, onClose, onAddMovie }) => {
                 type="submit"
                 className="text-white bg-slate-700 px-4 py-2 rounded-md"
               >
-                Add Movie
+                {isEdit ? "Edit" : "Add Movie"}
               </button>
 
               <button

@@ -4,11 +4,11 @@ import Modal from "react-modal/lib/components/Modal";
 import { Route, Routes } from "react-router-dom";
 import MovieInfoModal from "./components/Modals/MovieInfoModal";
 import NavBar from "./components/NavBar";
-import AdminPage from "./Pages/AdminPage";
-import HomePage from "./Pages/HomePage";
-import LandingPage from "./Pages/LandingPage";
-import MovieCataloguePage from "./Pages/MovieCataloguePage";
-import MyListPage from "./Pages/MyListPage";
+import AdminPage from "./components/Pages/AdminPage";
+import HomePage from "./components/Pages/HomePage";
+import LandingPage from "./components/Pages/LandingPage";
+import MovieCataloguePage from "./components/Pages/MovieCataloguePage";
+import MyListPage from "./components/Pages/MyListPage";
 
 import MoviesContext from "./contexts/MoviesContext";
 
@@ -91,7 +91,7 @@ function App() {
       >
         <NavBar />
         <Routes>
-          <Route path="/" element={<LandingPage isLoading={moviesLoading} />}></Route>
+          <Route path="/" element={<LandingPage  />}></Route>
           <Route path="/home" element={<HomePage />}></Route>
           <Route path="/catalogue" element={<MovieCataloguePage />}></Route>
           <Route path="/admin" element={<AdminPage />}></Route>

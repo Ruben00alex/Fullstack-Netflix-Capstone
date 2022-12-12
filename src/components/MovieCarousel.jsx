@@ -21,7 +21,7 @@ const MovieCarousel = ({ movies, genre }) => {
         id={idFromGenre + "LeftButton"}
         className="sticky left-0  bg-slate-700/70 text-white  px-4 py-10 z-10  hover:bg-red-600/70 duration-300 hidden"
         onClick={() => {
-          document.getElementById(idFromGenre).scrollLeft -= 200;
+          document.getElementById(idFromGenre).scrollLeft -= 500;
 
           //if the scroll is less than 0, set it to 0 and hide the button
           if (document.getElementById(idFromGenre).scrollLeft <= 0) {
@@ -69,7 +69,7 @@ const MovieCarousel = ({ movies, genre }) => {
         onClick={() => {
           document.getElementById(idFromGenre + "LeftButton").style.display =
             "block";
-          document.getElementById(idFromGenre).scrollLeft += 200;
+          document.getElementById(idFromGenre).scrollLeft += 500;
         }}
       >
         {">"}
