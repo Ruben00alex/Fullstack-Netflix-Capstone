@@ -46,7 +46,6 @@ const AddMovieForm = ({ onSubmit, defaultEditValues }) => {
 
     
             return (
-                //use tailwind to style the form, don't use material ui at all
                 <div className="w-full mx-auto ">
                     <form
                         className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col gap-2"
