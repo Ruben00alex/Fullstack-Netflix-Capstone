@@ -1,12 +1,14 @@
 import MoviesContext from "../contexts/MoviesContext";
 import { useContext } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 const MovieCatalogueGrid = ({
   movies,
   setIsMovieInfoModalOpen,
   setChosenMovie,
   moviesLoading,
+  editMovie,
+  isAdmin,
 }) => {
 
 
@@ -21,7 +23,7 @@ const MovieCatalogueGrid = ({
         <div className=" mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-12">
           {movies.map((movie) => (
             <div
-              className="aspect-video w-48 lg:w-72  object-cover float-left hover:scale-125  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
+              className="aspect-video w-48 lg:w-56 xl:w-64 object-cover float-left hover:scale-125  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
               style={{
                 backgroundImage: `url(${movie.cover})`,
                 backgroundSize: "cover",
@@ -31,13 +33,35 @@ const MovieCatalogueGrid = ({
             >
               {/* gradient overlay */}
               <div
-                className="aspect-video w-48 lg:w-72 absolute  object-cover -z-1  bg-gradient-to-b  hover:opacity-0 duration-700 to-black/20 from-transparent"
+                className="aspect-video w-48 lg:w-56 xl:w-64 absolute  object-cover -z-1  bg-gradient-to-b  hover:opacity-0 duration-700 to-black/20 from-transparent"
                 onClick={() => {
                   setIsMovieInfoModalOpen(true);
                   setChosenMovie(movie);
                 }}
               ></div>
+              <div className="flex flex-row">
+              
+              {isAdmin ? (
+                <><button
+                className=" bg-slate-700/70 text-white z-[10]  p-4 rounded-full text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative 
+            bottom-0 left-0 "
+                onClick={() => {
+                  deleteMovie(movie);
+                }}
+              >
+                <AiOutlineDelete />
+              </button>
+
               <button
+                className=" bg-slate-700/70 text-white z-[10]  p-4 rounded-full text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative 
+            bottom-0 left-0 "
+                onClick={() => {
+                  editMovie(movie._id);
+                }}
+              >
+                <AiOutlineEdit />
+              </button></>
+              ):(<button
                 className=" bg-slate-700/70 text-white z-[10]  p-4 rounded-full text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative 
             bottom-0 left-0 "
                 onClick={() => {
@@ -50,7 +74,10 @@ const MovieCatalogueGrid = ({
                 ) : (
                   <AiOutlinePlus />
                 )}
-              </button>
+              </button>)}
+                
+                </div>
+              
             </div>
           ))}
         </div>
