@@ -2,14 +2,14 @@ import MovieInfoModal from "../Modals/MovieInfoModal";
 import MovieCatalogueGrid from "../MovieCatalogueGrid";
 
 
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import MoviesContext from "../../contexts/MoviesContext";
 
 import Modal from "react-modal";
 
-import { useMoviesData, useSaveMovie } from "../../hooks/useMoviesDataHook";
+//We import the useMoviesData hook, which is a custom hook that fetches the movies data from the server
+import { useDeleteMovie, useEditMovie, useMoviesData, useSaveMovie } from "../../hooks/useMoviesDataHook";
 import AddMovieModal from "../Modals/AddMovieModal";
-import AddMovieForm from "../Forms/AddMovieForm";
 
 const AdminPage = () => {
   const { setChosenMovie, setMovies, chosenMovie, watchList, addToWatchList } =
@@ -26,7 +26,8 @@ const AdminPage = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { data: movies, isLoading, error } = useMoviesData();
   let { mutate: saveMovieMutation } = useSaveMovie();
-
+  let {mutate: editMovieMutation} = useEditMovie();
+  let {mutate: deleteMovieMutation , isLoading:deleteMutationLoading} = useDeleteMovie();
 
 
 
@@ -58,17 +59,19 @@ const AdminPage = () => {
   };
 
   const handleDelete = (movie) => {
-    let newMovies = [...movies];
-    let movieIndex = newMovies.findIndex((m) => m.id === movie.id);
-    newMovies.splice(movieIndex, 1);
 
-    // add the movie to the watchlist if it is in the watchlist (this is a hacky way to do it, but it works)
-    let watchListIndex = watchList.findIndex((m) => m.id === movie.id);
+    console.log("DELETING MOVIE")
+    console.log(movie)
+
+    deleteMovieMutation(movie);//send a delete request to the server to delete the movie using the useDeleteMovie hook
+
+    // add the movie to the watchlist if it is in the watchlist 
+    let watchListIndex = watchList.findIndex((m) => m._id === movie._id);
     if (watchListIndex !== -1) {
       addToWatchList(movie);
     }
 
-    setMovies(newMovies);
+    
   };
 
   const handleEdit =  (id) => {
@@ -107,6 +110,8 @@ const AdminPage = () => {
     console.log(movie.video)
     setIsAddMovieModalOpen(false)
 
+    editMovieMutation(movie);
+
   }
 
   if (error) {
@@ -142,7 +147,7 @@ const AdminPage = () => {
           Add Movie
         </button>
         <div className="flex flex-col items-center mt-16">
-          <h1 className="text-4xl font-bold text-slate-200">Movies</h1>
+          <h1 className="text-4xl font-bold text-slate-200">Admin Page</h1>
         </div>
 
         <MovieCatalogueGrid
@@ -151,6 +156,8 @@ const AdminPage = () => {
           setChosenMovie={setChosenMovie}
           editMovie={handleEdit}
           isAdmin = {true}
+          handleDelete={handleDelete}
+          deleteMutationLoading={deleteMutationLoading}
         />
       </div>
 

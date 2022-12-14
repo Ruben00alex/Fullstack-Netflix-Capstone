@@ -23,6 +23,37 @@ export const saveMovie = async (movie) => {
 
 }
 
+export const deleteMovie = async (movie) => {
+    console.log('deleteMovie')
+    console.log(movie)
+
+    const response = await fetch(`http://localhost:3000/movies/${movie}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    console.log(response)
+    const deletedMovie = await response.json()
+    console.log(deletedMovie)
+    return deletedMovie
+}
+
+export const updateMovie = async (movie) => {
+    console.log('updateMovie')
+    console.log(movie)
+    const response = await fetch(`http://localhost:3000/movies/${movie._id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movie)
+    })
+    console.log(response)
+    const updatedMovie = await response.json()
+    console.log(updatedMovie)
+    return updatedMovie
+}
 
 const test = async () => {
     console.log('test')

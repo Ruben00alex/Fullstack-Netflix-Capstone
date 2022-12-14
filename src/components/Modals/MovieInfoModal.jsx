@@ -16,20 +16,21 @@ const MovieInfoModal = ({
   isAdmin,
   setIsMovieInfoModalOpen,
   setIsMovieModalOpen,
-  handleEdit
+  handleEdit,
+  handleDelete,
 }) => {
 
   const { addToWatchList, watchList } = useContext(MoviesContext);
   return (
     <>
-      <div className=" w-full h-full mx-auto bg-black/50 z-[10000]">
+      <div className=" w-[full] h-full mx-auto bg-black/50 z-[10000]">
         <button
           className="absolute top-0 left-0 m-2 p-2 bg-black/50 hover:bg-red-600/70 duration-300 rounded-[100%] w-10 h-10 z-[10000] "
           onClick={() => setIsMovieInfoModalOpen(false)}
         >
           X
         </button>
-        <div className="flex flex-col items-left">
+        <div className="flex flex-col items-center">
           {/* place button in the middle of the image */}
           <img
             className="aspect-video w-full mx-auto  object-cover "
@@ -39,7 +40,7 @@ const MovieInfoModal = ({
 
           <div className="flex flex-col items-left  gap-2 p-4">
             <div className="flex flex-row items-center gap-2">
-              <h1 className="text-2xl lg:text-5xl font-bold my-0 text-white bg-black/50 p-2  rounded-lg w-[16ch]">
+              <h1 className="text-lg  lg:text-5xl font-bold my-0 text-white bg-black/50 p-2  rounded-lg w-[16ch]">
                 {movie.title} ({movie.year})
               </h1>
               {/* edit button */}
@@ -71,7 +72,7 @@ const MovieInfoModal = ({
                   <AiOutlineDelete
                     className="text-4xl text-white m-auto w-16 h-16"
                     onClick={() => {
-                      handleDelete(movie);
+                      handleDelete(movie._id);
                       setIsMovieInfoModalOpen(false);
                     }}
                   />
