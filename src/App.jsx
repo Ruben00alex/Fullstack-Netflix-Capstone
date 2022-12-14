@@ -105,8 +105,8 @@ function App() {
         <Modal
           isOpen={isMovieModalOpen}
           onRequestClose={() => setIsMovieModalOpen(false)}
-          className="bg-slate-700/70 text-white absolute w-[95%] h-auto mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-2 flex flex-col backdrop:bg-black/50 backdrop-blur-sm"
-          overlayClassName="fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-sm z-20"
+          className="bg-slate-700/70 text-white absolute w-full  md:w-[80%] h-auto mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-2 flex flex-col backdrop:bg-black/50 backdrop-blur-sm"
+          overlayClassName="fixed inset-0 bg-black/80 backdrop-filter backdrop-blur-lg z-20"
         >
           <button
             className="absolute top-0 left-0 m-2 p-2 bg-black/50 hover:bg-red-600/70 duration-300 rounded-[100%] w-10 h-10 z-[10000] "
@@ -131,7 +131,7 @@ function App() {
           isOpen={isMovieInfoModalOpen}
           onRequestClose={() => setIsMovieInfoModalOpen(false)}
           // height of 80% of the screen
-          className="bg-slate-700/70 text-white absolute lg:w-fit w-full h-fit   mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl  flex flex-col backdrop:bg-black/50 backdrop-blur-sm "
+          className="bg-slate-700/70 text-white absolute lg:w-fit w-full md:w-fit h-fit   mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl  flex flex-col backdrop:bg-black/50 backdrop-blur-sm "
           overlayClassName="fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-sm z-20"
         >
           <MovieInfoModal

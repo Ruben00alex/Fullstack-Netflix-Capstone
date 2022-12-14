@@ -3,18 +3,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 import MoviesContext from "../contexts/MoviesContext";
 const MovieCarousel = ({ movies, genre }) => {
-  //movies is an array of objects with movies of one genre
-  //genre is a string with the genre name
-  //idFromGenre is a string with the genre name in lowercase  without spaces + "Carousel"
-  const idFromGenre = genre.toLowerCase().replace(" ", "") + "Carousel";
+  const idFromGenre = genre.toLowerCase().replace(" ", "") + "Carousel"; //id which  will be used to scroll the carousel and to hide the left button when the scroll is 0
 
-  //use context instead of passing props
   const { setIsMovieInfoModalOpen, setChosenMovie, addToWatchList, watchList } =
     useContext(MoviesContext);
 
   return (
     <div
-      className="flex flex-row items-center h-fit mx-auto px-2 w-full  my-4 gap-2 overflow-x-scroll md:overflow-hidden  overflow-y-hidden  duration-500 py-6 bg-slate-800/40 "
+      className="flex flex-row items-center h-fit mx-auto px-2 w-full  my-4 gap-5 overflow-x-scroll md:overflow-hidden  overflow-y-hidden  duration-500 py-6 bg-slate-800/40 "
       id={idFromGenre}
     >
       <button
@@ -23,7 +19,7 @@ const MovieCarousel = ({ movies, genre }) => {
         onClick={() => {
           document.getElementById(idFromGenre).scrollLeft -= 500;
 
-          //if the scroll is less than 0, set it to 0 and hide the button
+          //if the scroll is less than 0, the left button will be hidden
           if (document.getElementById(idFromGenre).scrollLeft <= 0) {
             document.getElementById(idFromGenre + "LeftButton").style.display =
               "none";
@@ -32,7 +28,6 @@ const MovieCarousel = ({ movies, genre }) => {
       >
         {"<"}
       </button>
-
       {movies.map((movie) => (
         //make a div with the image and the title inside the
         <>
@@ -48,7 +43,7 @@ const MovieCarousel = ({ movies, genre }) => {
             }}
           />
           <button
-            className=" bg-slate-700/70 text-white   m-0 p-4 rounded-full  text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative -bottom-8 -left-10"
+            className=" bg-slate-700/70 text-white  group:  m-0 p-4 rounded-full  text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative -bottom-8 right-20"
             onClick={() => {
               addToWatchList(movie);
             }}
@@ -62,7 +57,6 @@ const MovieCarousel = ({ movies, genre }) => {
           </button>
         </>
       ))}
-
       <button
         id={idFromGenre + "rightButton"}
         className="sticky right-0  bg-slate-700/70 text-white px-4 py-10 z-10 hover:bg-red-600/70 duration-300 float-right ml-auto"
