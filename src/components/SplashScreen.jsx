@@ -36,8 +36,8 @@ const SplashScreen = ({ movie }) => {
         <button
           className=" bg-black text-white hover:text-black hover:bg-red-600 duration-300 m-4 px-4 py-2  border-2 border-white rounded-lg"
           onClick={() => {
-            setIsMovieModalOpen(true);
             setChosenMovie(movie);
+            setIsMovieModalOpen(true);
           }}
         >
           Play
