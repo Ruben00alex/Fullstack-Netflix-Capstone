@@ -1,7 +1,7 @@
-
+const SERVER_URL =( process.env.REST_API_URL || 'http://localhost:3000') + '/movies/';
 
 export const getMovies = async () => {
-    const response = await fetch('http://localhost:3000/movies' )
+    const response = await fetch(SERVER_URL )
     const movies = await response.json()
     console.log(movies)
     return movies
@@ -9,7 +9,7 @@ export const getMovies = async () => {
 export const saveMovie = async (movie) => {
     console.log('saveMovie')
     console.log(movie)
-    const response = await fetch('http://localhost:3000/movies', {
+    const response = await fetch(SERVER_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export const deleteMovie = async (movie) => {
     console.log('deleteMovie')
     console.log(movie)
 
-    const response = await fetch(`http://localhost:3000/movies/${movie}`, {
+    const response = await fetch(`${SERVER_URL}${movie}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export const deleteMovie = async (movie) => {
 export const updateMovie = async (movie) => {
     console.log('updateMovie')
     console.log(movie)
-    const response = await fetch(`http://localhost:3000/movies/${movie._id}`, {
+    const response = await fetch(`${SERVER_URL}${movie._id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
