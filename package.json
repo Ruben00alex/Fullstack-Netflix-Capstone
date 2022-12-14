@@ -9,8 +9,8 @@
     "build": "npm run vite-build",
     
     "preview": "vite preview",
-    "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "tailwind-build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css",
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./output.css --watch",
+    "tailwind-build": "npx tailwindcss -i ./src/input.css -o ./output.css",
     "start": "npm run dev & npm run tailwind"
   },
   "dependencies": {
