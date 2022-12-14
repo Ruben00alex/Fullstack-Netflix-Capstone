@@ -1,4 +1,6 @@
-const SERVER_URL =( process.env.REST_API_URL || 'http://localhost:3000') + '/movies/';
+
+
+const SERVER_URL =("https://fullstack-netflix-clone-rest-api.up.railway.app/" ) + 'movies/';
 
 export const getMovies = async () => {
     const response = await fetch(SERVER_URL )
