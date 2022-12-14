@@ -29,17 +29,6 @@ function App() {
 
 
   let [watchList, setWatchList] = useState([
-    {
-      _id: 6,
-      title: "Schindler's List",
-      plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution ",
-      year: 1993,
-      cover:
-        "https://occ-0-1007-444.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABdhQO6S8ICyAqtSM7d8w-L_l6oO8ze4GRzEmfpO_idOU1EXMgzjrZc5swsBDAdyD0GhlCZSHmezXh2sOqe9aEqoIDXuXkw6IjUEP.jpg?r=9a0",
-      runTime: "195 min",
-      genre: ["Biography", "Drama", "History"],
-      director: "Steven Spielberg",
-    },
   ]);
   let [genres, setGenres] = useState([]);
 

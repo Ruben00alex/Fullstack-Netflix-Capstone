@@ -23,7 +23,7 @@ const MovieCatalogueGrid = ({
         <div className=" mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-2 xl:gap-2 gap-y-12">
           {movies.map((movie) => (
             <div
-              className="aspect-video w-36 lg:w-56 2xl:w-72 object-cover float-left hover:scale-125 hover:z-[2sdsadasdasdsadsdsad0]  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
+              className="aspect-video w-36 lg:w-56 2xl:w-72 object-cover float-left hover:scale-125 hover:z-[20]  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
               style={{
                 backgroundImage: `url(${movie.cover})`,
                 backgroundSize: "cover",
