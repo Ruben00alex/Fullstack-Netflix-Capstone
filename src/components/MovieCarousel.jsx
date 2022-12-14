@@ -10,7 +10,7 @@ const MovieCarousel = ({ movies, genre }) => {
 
   return (
     <div
-      className="flex flex-row items-center h-fit mx-auto px-2 w-full  my-4 gap-5 overflow-x-scroll md:overflow-hidden  overflow-y-hidden  duration-500 py-6 bg-slate-800/40 "
+      className="flex flex-row items-center h-fit mx-auto  w-full  overflow-x-scroll md:overflow-hidden  overflow-y-hidden  duration-500 py-6 bg-slate-800/40 "
       id={idFromGenre}
     >
       <button
@@ -35,7 +35,7 @@ const MovieCarousel = ({ movies, genre }) => {
             src={movie.cover}
             alt={movie.title}
             // make pointer when hover
-            className="aspect-video w-48 lg:w-64  object-cover float-left  hover:scale-125 duration-300 hover:brightness-50 hover:cursor-pointer shadow-xl shadow-black/100 "
+            className="aspect-video w-48 lg:w-64 2xl:w-72  object-cover float-left  hover:scale-125 duration-300 hover:brightness-50 hover:cursor-pointer shadow-xl shadow-black/100 "
             key={movie._id}
             onClick={() => {
               setIsMovieInfoModalOpen(true);
@@ -43,7 +43,7 @@ const MovieCarousel = ({ movies, genre }) => {
             }}
           />
           <button
-            className=" bg-slate-700/70 text-white  group:  m-0 p-4 rounded-full  text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative -bottom-8 right-20"
+            className=" bg-slate-700/70 text-white  group:  m-0 p-4 rounded-full  text-center items-center hover:scale-125 hover:bg-red-600/70 duration-300 relative -bottom-8 right-12"
             onClick={() => {
               addToWatchList(movie);
             }}

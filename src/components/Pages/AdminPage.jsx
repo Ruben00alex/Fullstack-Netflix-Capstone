@@ -61,14 +61,15 @@ const AdminPage = () => {
   const handleDelete = (movie) => {
 
     console.log("DELETING MOVIE")
-    console.log(movie)
 
     deleteMovieMutation(movie);//send a delete request to the server to delete the movie using the useDeleteMovie hook
 
     // add the movie to the watchlist if it is in the watchlist 
-    let watchListIndex = watchList.findIndex((m) => m._id === movie._id);
+    let watchListIndex = watchList.findIndex((m) => m._id === movie);
     if (watchListIndex !== -1) {
-      addToWatchList(movie);
+      //find movie in movies list(movie is the id)
+      let foundMovie = movies.find((m) => m._id === movie);
+      addToWatchList(foundMovie);
     }
 
     

@@ -20,10 +20,10 @@ const MovieCatalogueGrid = ({
   return (
     <>
       <div className="flex flex-col items-center mt-16  p-4 w-fit mx-auto ">
-        <div className=" mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 xl:gap-12 gap-y-12">
+        <div className=" mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-2 xl:gap-2 gap-y-12">
           {movies.map((movie) => (
             <div
-              className="aspect-video w-36 lg:w-48 xl:w-64 object-cover float-left hover:scale-125  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
+              className="aspect-video w-36 lg:w-56 2xl:w-72 object-cover float-left hover:scale-125 hover:z-[2sdsadasdasdsadsdsad0]  duration-300 hover:brightness-125 hover:cursor-pointer shadow-xl shadow-black/100 "
               style={{
                 backgroundImage: `url(${movie.cover})`,
                 backgroundSize: "cover",
@@ -33,7 +33,7 @@ const MovieCatalogueGrid = ({
             >
               {/* gradient overlay */}
               <div
-                className="aspect-video w-36 lg:w-48 xl:w-64 absolute  object-cover -z-1  bg-gradient-to-b  hover:opacity-0 duration-700 to-black/20 from-transparent"
+                className="aspect-video w-36 lg:w-56 2xl:w-72 absolute  object-cover -z-1  bg-gradient-to-b  hover:opacity-0 duration-700 to-black/20 from-transparent"
                 onClick={() => {
                   setChosenMovie(movie);
                   setIsMovieInfoModalOpen(true);
