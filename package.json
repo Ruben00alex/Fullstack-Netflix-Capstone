@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "vite-build": "vite build",
-    "build": "npm run tailwind-build&npm run vite-build  ",
+    "build": "npm run vite-build",
+    
     "preview": "vite preview",
     "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "tailwind-build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css",
