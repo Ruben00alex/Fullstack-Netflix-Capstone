@@ -35,7 +35,7 @@ const NavBar = () => {
               className="w-16 md:w-24 ml-0"
             />
           </Link>
-          <div className="flex flex-row ml-auto items-center gap-4 bg-[#141414]/60 p-2">
+          <div className="flex flex-row ml-4 items-center gap-4 bg-[#141414]/60 p-2">
             <Link to="/home">
               <p className="hover:text-white duration-500">
                 Home
