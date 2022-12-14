@@ -15,6 +15,7 @@ import MoviesContext from "./contexts/MoviesContext";
 import { useMoviesData } from "./hooks/useMoviesDataHook";
 
 import { ReactQueryDevtools } from 'react-query/devtools';
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -131,7 +132,6 @@ function App() {
             setIsMovieModalOpen={setIsMovieModalOpen}
           />
         </Modal>
-
 <ReactQueryDevtools initialIsOpen={false} />
       </MoviesContext.Provider>
     </>
